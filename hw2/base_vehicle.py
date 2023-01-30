@@ -7,21 +7,30 @@ from variables import FUEL_COMSUMPTION
 from exceptions import LowFuelError, NotEnoughFuel, CargoOverload
 
 class BaseVehicle():
-    def __init__(self, weight=None, started=0, fuel=None, fuel_consumption=FUEL_COMSUMPTION):
+    def __init__(self, weight=None, fuel=None, fuel_consumption=FUEL_COMSUMPTION):
         self.weight = weight
-        self.started = started
+        self.started = False
         self.fuel = fuel
         self.fuel_consumption = fuel_consumption
 
 
     def start(self):
-        if not (self.started == 0 and self.fuel > 0):
-            #print(f'Started status is now: {self.started} Not Started')
-            self.started = 0
-            raise LowFuelError(f'Fuel is {self.fuel}')
+        if not self.started == False:
+            if self.fuel > 0:
+                self.started = True
+                print(f'Started status is now: {self.started}')
+            else:
+                self.started = True
+                print(f'Started status is now: {self.started}')
+                raise LowFuelError(f'Fuel is {self.fuel}')
         else:
-            self.started = 1
-            #print(f'Started status is now: {self.started} (Started)')
+            if self.fuel > 0:
+                self.started = True
+                print(f'Started status is now: {self.started}')
+            else:
+                self.started = False
+                print(f'Started status is now: {self.started}')
+                raise LowFuelError(f'Fuel is {self.fuel}')
 
 
     def move(self, distance):
